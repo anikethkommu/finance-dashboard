@@ -1,0 +1,613 @@
+/* ─────────────────────────────────────
+   CSS CUSTOM PROPERTIES (variables)
+   Change these to restyle the whole app
+───────────────────────────────────── */
+:root {
+  --bg-page:        #f4f5f7;
+  --bg-card:        #ffffff;
+  --bg-nav:         #ffffff;
+  --text-primary:   #1a1d23;
+  --text-secondary: #6b7280;
+  --text-muted:     #9ca3af;
+  --border:         #e5e7eb;
+  --accent-blue:    #3b82f6;
+  --accent-green:   #10b981;
+  --accent-red:     #ef4444;
+  --accent-amber:   #f59e0b;
+  --shadow-sm:      0 1px 3px rgba(0,0,0,0.07);
+  --shadow-md:      0 4px 12px rgba(0,0,0,0.08);
+  --radius-sm:      8px;
+  --radius-md:      12px;
+  --radius-lg:      16px;
+  --font-main:      'DM Sans', sans-serif;
+  --font-mono:      'DM Mono', monospace;
+  --nav-height:     60px;
+  --transition:     0.2s ease;
+}
+
+/* ── DARK THEME ── */
+[data-theme="dark"] {
+  --bg-page:        #0f1117;
+  --bg-card:        #1a1d23;
+  --bg-nav:         #1a1d23;
+  --text-primary:   #f1f3f5;
+  --text-secondary: #9ca3af;
+  --text-muted:     #6b7280;
+  --border:         #2d3139;
+  --shadow-sm:      0 1px 3px rgba(0,0,0,0.3);
+  --shadow-md:      0 4px 12px rgba(0,0,0,0.4);
+}
+
+/* ─────────────────────────────────────
+   RESET & BASE
+───────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-main);
+  background: var(--bg-page);
+  color: var(--text-primary);
+  font-size: 15px;
+  line-height: 1.6;
+  transition: background var(--transition), color var(--transition);
+  min-height: 100vh;
+}
+
+ul { list-style: none; }
+button { cursor: pointer; font-family: var(--font-main); }
+input, select { font-family: var(--font-main); }
+
+/* ─────────────────────────────────────
+   NAVBAR
+───────────────────────────────────── */
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  height: var(--nav-height);
+  background: var(--bg-nav);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1.5rem;
+  box-shadow: var(--shadow-sm);
+  transition: background var(--transition), border-color var(--transition);
+}
+
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.nav-logo {
+  font-size: 22px;
+  line-height: 1;
+}
+
+.nav-title {
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: -0.3px;
+  color: var(--text-primary);
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.nav-date {
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.theme-toggle {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--bg-page);
+  color: var(--text-primary);
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background var(--transition), border-color var(--transition);
+}
+
+.theme-toggle:hover {
+  background: var(--border);
+}
+
+/* ─────────────────────────────────────
+   LAYOUT CONTAINER
+───────────────────────────────────── */
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+}
+
+/* ─────────────────────────────────────
+   SUMMARY CARDS (top row)
+───────────────────────────────────── */
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.summary-card {
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem 1.5rem;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+  transition: background var(--transition), border-color var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+
+.summary-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+}
+
+.summary-card.balance::before { background: var(--accent-blue); }
+.summary-card.income::before  { background: var(--accent-green); }
+.summary-card.expenses::before { background: var(--accent-red); }
+
+.card-label {
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-secondary);
+  margin-bottom: 6px;
+}
+
+.card-amount {
+  font-family: var(--font-mono);
+  font-size: 26px;
+  font-weight: 500;
+  letter-spacing: -0.5px;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+
+.summary-card.income .card-amount  { color: var(--accent-green); }
+.summary-card.expenses .card-amount { color: var(--accent-red); }
+
+.card-sub {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+/* ─────────────────────────────────────
+   MAIN CONTENT GRID
+───────────────────────────────────── */
+.content-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  align-items: start;
+}
+
+.left-col, .right-col {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* ─────────────────────────────────────
+   SHARED CARD STYLE
+───────────────────────────────────── */
+.card {
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+  padding: 1.25rem 1.5rem;
+  transition: background var(--transition), border-color var(--transition);
+}
+
+.section-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+  letter-spacing: -0.1px;
+}
+
+/* ─────────────────────────────────────
+   FORM
+───────────────────────────────────── */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-bottom: 0.85rem;
+}
+
+.form-group label {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.form-group input,
+.form-group select {
+  height: 40px;
+  padding: 0 12px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  background: var(--bg-page);
+  color: var(--text-primary);
+  font-size: 14px;
+  transition: border-color var(--transition), background var(--transition);
+  outline: none;
+  width: 100%;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  border-color: var(--accent-blue);
+  box-shadow: 0 0 0 3px rgba(59,130,246,0.12);
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+/* Income / Expense toggle */
+.type-toggle {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+  margin-bottom: 0.85rem;
+  background: var(--bg-page);
+  border-radius: var(--radius-sm);
+  padding: 4px;
+  border: 1px solid var(--border);
+}
+
+.type-btn {
+  padding: 8px;
+  border-radius: 6px;
+  border: none;
+  background: transparent;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  transition: background var(--transition), color var(--transition);
+}
+
+.type-btn.active[data-type="expense"] {
+  background: var(--accent-red);
+  color: #fff;
+}
+
+.type-btn.active[data-type="income"] {
+  background: var(--accent-green);
+  color: #fff;
+}
+
+.type-btn:hover:not(.active) {
+  background: var(--border);
+  color: var(--text-primary);
+}
+
+/* Add button */
+.add-btn {
+  width: 100%;
+  height: 42px;
+  border-radius: var(--radius-sm);
+  border: none;
+  background: var(--accent-blue);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  transition: opacity var(--transition), transform var(--transition);
+}
+
+.add-btn:hover  { opacity: 0.88; }
+.add-btn:active { transform: scale(0.98); }
+
+.form-error {
+  font-size: 12px;
+  color: var(--accent-red);
+  margin-top: 6px;
+  min-height: 18px;
+}
+
+/* ─────────────────────────────────────
+   TRANSACTION LIST
+───────────────────────────────────── */
+.list-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.list-header .section-title { margin-bottom: 0; }
+
+.clear-btn {
+  font-size: 12px;
+  color: var(--text-muted);
+  background: none;
+  border: none;
+  padding: 4px 8px;
+  border-radius: var(--radius-sm);
+  transition: color var(--transition), background var(--transition);
+}
+
+.clear-btn:hover {
+  color: var(--accent-red);
+  background: rgba(239,68,68,0.08);
+}
+
+.transaction-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 320px;
+  overflow-y: auto;
+  padding-right: 2px;
+}
+
+.transaction-list::-webkit-scrollbar { width: 4px; }
+.transaction-list::-webkit-scrollbar-track { background: transparent; }
+.transaction-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+/* Individual transaction item */
+.transaction-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  background: var(--bg-page);
+  animation: slideIn 0.2s ease;
+  gap: 10px;
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.transaction-item:hover {
+  border-color: var(--accent-blue);
+}
+
+.txn-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+  min-width: 0;
+}
+
+.txn-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.txn-dot.income  { background: var(--accent-green); }
+.txn-dot.expense { background: var(--accent-red); }
+
+.txn-info { min-width: 0; }
+
+.txn-desc {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.txn-cat {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.txn-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.txn-amount {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.txn-amount.income  { color: var(--accent-green); }
+.txn-amount.expense { color: var(--accent-red); }
+
+.txn-delete {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 14px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background var(--transition), color var(--transition);
+}
+
+.txn-delete:hover {
+  background: rgba(239,68,68,0.1);
+  color: var(--accent-red);
+}
+
+.empty-state {
+  font-size: 13px;
+  color: var(--text-muted);
+  text-align: center;
+  padding: 1.5rem 0;
+}
+
+/* ─────────────────────────────────────
+   CHART
+───────────────────────────────────── */
+.chart-wrap {
+  position: relative;
+  width: 100%;
+  max-width: 260px;
+  margin: 0 auto;
+}
+
+.chart-wrap canvas {
+  display: block;
+  width: 100% !important;
+}
+
+.chart-empty {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  color: var(--text-muted);
+  text-align: center;
+  padding: 1rem;
+  background: var(--bg-card);
+  border-radius: var(--radius-md);
+}
+
+/* ─────────────────────────────────────
+   CATEGORY BREAKDOWN
+───────────────────────────────────── */
+.breakdown-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.breakdown-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.breakdown-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.breakdown-name {
+  font-size: 13px;
+  color: var(--text-primary);
+}
+
+.breakdown-amount {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.breakdown-bar-track {
+  width: 100%;
+  height: 5px;
+  background: var(--border);
+  border-radius: 99px;
+  overflow: hidden;
+}
+
+.breakdown-bar-fill {
+  height: 100%;
+  border-radius: 99px;
+  transition: width 0.4s ease;
+}
+
+/* ─────────────────────────────────────
+   TOAST NOTIFICATION
+───────────────────────────────────── */
+.toast {
+  position: fixed;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: var(--text-primary);
+  color: var(--bg-card);
+  font-size: 13px;
+  font-weight: 500;
+  padding: 10px 20px;
+  border-radius: 99px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  white-space: nowrap;
+  z-index: 999;
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* ─────────────────────────────────────
+   RESPONSIVE — TABLET (≤ 768px)
+───────────────────────────────────── */
+@media (max-width: 768px) {
+  .container { padding: 1.25rem 1rem; }
+
+  .summary-grid {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+
+  .content-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .card-amount { font-size: 22px; }
+
+  .nav-date { display: none; }
+}
+
+/* ─────────────────────────────────────
+   RESPONSIVE — MOBILE (≤ 480px)
+───────────────────────────────────── */
+@media (max-width: 480px) {
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .nav-title { font-size: 16px; }
+
+  .card { padding: 1rem 1.1rem; }
+}
