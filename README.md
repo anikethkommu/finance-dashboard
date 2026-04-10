@@ -64,7 +64,7 @@ finance-dashboard/
 
 ![Dashboard light mode](screenshots/dashboard-light.png)
 ![Dashboard dark mode](screenshots/dashboard-dark.png)
-![Mobile view](screenshots/dashboard-expenses.png)
+
 
 ---
 
